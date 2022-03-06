@@ -62,7 +62,6 @@ String Imdat::lget(const std::vector<String>& com)  //com[0]` "lget", com[1]` "x
 void Imdat::ldel(const std::vector<String>& com) //com[0]` "ldel", com[1]` "x"
 {
 	listMap[com[1]].clear();
-	std::cout << "List cleaned successfully" << std::endl;
 }
 
 void Imdat::spush(const std::vector<String>& com) //com[0]` "spush", com[1]` "s", com[2]` "hello"
@@ -121,5 +120,4 @@ String Imdat::hget(const std::vector<String>& com) //com[0]` "hget", com[1]` "h"
 void Imdat::hdel(const std::vector<String>& com) //com[0]` "hget", com[1]` "h"
 {
 	htMap[com[1]].clear();
-	std::cout << "Hash Table cleaned successfully" << std::endl;
 }
