@@ -1,0 +1,2 @@
+for server.cpp - g++ server.cpp ../imdat/imdat.cpp ../parser/parser.cpp ../set/set.cpp ../string/string.cpp ../priority_queue/priority_queue.cpp -o server
+for client.cpp - g++ client.cpp -o client
