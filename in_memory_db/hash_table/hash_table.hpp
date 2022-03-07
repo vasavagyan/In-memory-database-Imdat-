@@ -2,11 +2,11 @@
 
 //default constructor
 template <typename Key, typename Val, typename Hash>
-HashTable<Key, Val, Hash>::HashTable() : vec(500) {}
+HashTable<Key, Val, Hash>::HashTable() : vec(100) {}
 
 //param constructor
 template <typename Key, typename Val, typename Hash>
-HashTable<Key, Val, Hash>::HashTable(const Key& key, const Val& val) : vec(800)
+HashTable<Key, Val, Hash>::HashTable(const Key& key, const Val& val) : vec(100)
 {
 	int index = hashStr(key, vec.size());
 	vec[index].push_back(std::make_pair<key, val>);
