@@ -1,5 +1,5 @@
 # In-memory-database-Imdat-
-This is a Redis-like database which is built on client-server connection using stream sockets. The database gives client 5 containers to work with. There are some commands which user must be familiar with to use right syntax. The data is kept in hash tables. Each one of the 5 containers has his own hash table to keep data with various keys. The commands are for following containers:
+This is a Redis-like database which is built on client-server connection using stream sockets. The database gives client 5 containers to work with. There are some commands which user must be familiar with to use right syntax. The data is kept in hash tables. Each one of the 5 containers has his own hash table to keep data with various keys. The program is written for Linux platform. The commands are for following containers:
 
 Commands for String container:
 1) set - example: set keyName valueName  (adds the value "valueName" in the string hash table with key "keyName")
