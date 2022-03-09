@@ -65,7 +65,6 @@ public:
 	iterator push_back(const T&);
 	iterator push_front(const T&);
 	void erase(iterator);
-
 };
 
 #include "list.hpp"
