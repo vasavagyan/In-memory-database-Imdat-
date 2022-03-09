@@ -92,7 +92,6 @@ String String::operator+ (const String& obj)
 	for (int i = 0; i < size; ++i) {
 		tmp[i] = buffer[i];
 	}
-
 	for (int i = size, j = 0; j <= obj.size; ++i, ++j) {
 		tmp[i] = obj[j];
 	}
@@ -245,4 +244,4 @@ void String::clear()
 			buffer[i] = '\0';
 		}
 	}
-}		
+}
