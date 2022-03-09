@@ -2,6 +2,29 @@
 
 #include <iostream>
 
+Imdat::Imdat()
+{
+	commandMap["set"] = &Imdat::set;
+	commandMap["get"] = &Imdat::get;
+	commandMap["del"] = &Imdat::del;
+	commandMap["lpushb"] = &Imdat::lpushb;
+	commandMap["lpushf"] = &Imdat::lpushf;
+	commandMap["lget"] = &Imdat::lget;
+	commandMap["lpopb"] = &Imdat::lpopb;
+	commandMap["lpopf"] = &Imdat::lpopf;
+	commandMap["ldel"] = &Imdat::ldel;
+	commandMap["spush"] = &Imdat::spush;
+	commandMap["sget"] = &Imdat::sget;
+	commandMap["sdel"] = &Imdat::sdel;
+	commandMap["qpush"] = &Imdat::qpush;
+	commandMap["qpop"] = &Imdat::qpop;
+	commandMap["qtop"] = &Imdat::qtop;
+	commandMap["qdel"] = &Imdat::qdel;
+	commandMap["hpush"] = &Imdat::hpush;
+	commandMap["hget"] = &Imdat::hget;
+	commandMap["hdel"] = &Imdat::hdel;
+}
+
 int Imdat::_stoi(const String& str)
 {
 	int j = 0;
@@ -13,9 +36,10 @@ int Imdat::_stoi(const String& str)
 	return j;
 }
 
-void Imdat::set(const std::vector<String>& com) //com is "set" "name" "Vzgo"
+String Imdat::set(const std::vector<String>& com) //com is "set" "name" "Vzgo"
 {
 	stringMap.emplace(com[1], com[2]);
+	return "ok";
 }
 
 String Imdat::get(const std::vector<String>& com) //com[0] is "get", com[1] is "name"
@@ -23,29 +47,34 @@ String Imdat::get(const std::vector<String>& com) //com[0] is "get", com[1] is "
 	return stringMap[com[1]];
 }
 
-void Imdat::del(const std::vector<String>& com) //com[0] is "del", com[1] is "name"
+String Imdat::del(const std::vector<String>& com) //com[0] is "del", com[1] is "name"
 {
 	stringMap.erase(com[1]);
+	return "ok";
 }
 
-void Imdat::lpushb(const std::vector<String>& com) //com[0]` "lpushb", com[1]` "x", com[2]` "10"
+String Imdat::lpushb(const std::vector<String>& com) //com[0]` "lpushb", com[1]` "x", com[2]` "10"
 {
 	listMap[com[1]].push_back(com[2]);
+	return "ok";
 }
 
-void Imdat::lpushf(const std::vector<String>& com) //com[0]` "lpushf", com[1]` "x", com[2]` "10"
+String Imdat::lpushf(const std::vector<String>& com) //com[0]` "lpushf", com[1]` "x", com[2]` "10"
 {
 	listMap[com[1]].push_front(com[2]);
+	return "ok";
 }
 
-void Imdat::lpopb(const std::vector<String>& com) //com[0]` "lpopb", com[1]` "x"
+String Imdat::lpopb(const std::vector<String>& com) //com[0]` "lpopb", com[1]` "x"
 {
 	listMap[com[1]].pop_back();
+	return "ok";
 }
 
-void Imdat::lpopf(const std::vector<String>& com) //com[0]` "lpopf", com[1]` "x"
+String Imdat::lpopf(const std::vector<String>& com) //com[0]` "lpopf", com[1]` "x"
 {
 	listMap[com[1]].pop_front();
+	return "ok";
 }
 
 String Imdat::lget(const std::vector<String>& com)  //com[0]` "lget", com[1]` "x"
@@ -59,14 +88,16 @@ String Imdat::lget(const std::vector<String>& com)  //com[0]` "lget", com[1]` "x
 	return str;
 }
 
-void Imdat::ldel(const std::vector<String>& com) //com[0]` "ldel", com[1]` "x"
+String Imdat::ldel(const std::vector<String>& com) //com[0]` "ldel", com[1]` "x"
 {
 	listMap[com[1]].clear();
+	return "ok";
 }
 
-void Imdat::spush(const std::vector<String>& com) //com[0]` "spush", com[1]` "s", com[2]` "hello"
+String Imdat::spush(const std::vector<String>& com) //com[0]` "spush", com[1]` "s", com[2]` "hello"
 {
 	setMap[com[1]].insert(com[2]);
+	return "ok";
 }
 
 String Imdat::sget(const std::vector<String>& com) //com[0]` "sget", com[1]` "s", com[2]` "hello"
@@ -79,21 +110,24 @@ String Imdat::sget(const std::vector<String>& com) //com[0]` "sget", com[1]` "s"
 	return val;
 }
 
-void Imdat::sdel(const std::vector<String>& com) //com[0]` "sdel", com[1]` "s"
+String Imdat::sdel(const std::vector<String>& com) //com[0]` "sdel", com[1]` "s"
 {
 	setMap[com[1]].clear();
+	return "ok";
 }
 
-void Imdat::qpush(const std::vector<String>& com) //com[0]` "qpush", com[1]` "q", com[2]` "vay", com[3]` "4"
+String Imdat::qpush(const std::vector<String>& com) //com[0]` "qpush", com[1]` "q", com[2]` "vay", com[3]` "4"
 {
 	int priority = _stoi(com[3]);
 
 	queueMap[com[1]].push(com[2], priority);
+	return "ok";
 }
 
-void Imdat::qpop(const std::vector<String>& com) //com[0]` "qpop", com[1]` "q"
+String Imdat::qpop(const std::vector<String>& com) //com[0]` "qpop", com[1]` "q"
 {
 	String value = queueMap[com[1]].pop();
+	return "ok";
 }
 
 String Imdat::qtop(const std::vector<String>& com) //com[0]` "qtop", com[1]` "q"
@@ -101,14 +135,16 @@ String Imdat::qtop(const std::vector<String>& com) //com[0]` "qtop", com[1]` "q"
 	return queueMap[com[1]].top();
 }
 
-void Imdat::qdel(const std::vector<String>& com) //com[0]` "qdel", com[1]` "q"
+String Imdat::qdel(const std::vector<String>& com) //com[0]` "qdel", com[1]` "q"
 {
 	queueMap[com[1]].clear();
+	return "ok";
 }
 
-void Imdat::hpush(const std::vector<String>& com) //com[0]` "hpush", com[1]` "h", com[2]` "hashKey", com[3]` "hashVal"
+String Imdat::hpush(const std::vector<String>& com) //com[0]` "hpush", com[1]` "h", com[2]` "hashKey", com[3]` "hashVal"
 {
 	htMap[com[1]].emplace(com[2], com[3]);
+	return "ok";
 }
 
 String Imdat::hget(const std::vector<String>& com) //com[0]` "hget", com[1]` "h", com[2]` "hashKey"
@@ -117,7 +153,16 @@ String Imdat::hget(const std::vector<String>& com) //com[0]` "hget", com[1]` "h"
 	return value;
 }
 
-void Imdat::hdel(const std::vector<String>& com) //com[0]` "hget", com[1]` "h"
+String Imdat::hdel(const std::vector<String>& com) //com[0]` "hget", com[1]` "h"
 {
 	htMap[com[1]].clear();
+	return "ok";
+}
+
+String Imdat::call(const std::vector<String>& com)
+{
+	if (commandMap.find(com[0])) {
+		return (this->*commandMap[com[0]])(com);
+	}
+	return "Wrong command";
 }
