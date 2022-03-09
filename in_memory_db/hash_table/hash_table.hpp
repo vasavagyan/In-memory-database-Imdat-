@@ -63,3 +63,17 @@ void HashTable<Key, Val, Hash>::clear()
 		vec[i].clear();
 	}
 }
+
+template <typename Key, typename Val, typename Hash>
+bool HashTable<Key, Val, Hash>::find(const Key& key)
+{
+        int index = hashStr(key, vec.size());
+        if (vec[index].begin() != nullptr) {
+                for (auto it = vec[index].begin(); it != vec[index].end(); ++it) {
+                        if (it->first == key) {
+                                return true;
+                        }
+                }
+        }
+        return false;
+}
