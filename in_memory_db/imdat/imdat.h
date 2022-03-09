@@ -12,7 +12,7 @@
 class Imdat
 {
 public:
-	Imdat() = default;
+	Imdat();
 	Imdat(const Imdat&) = delete;
 	Imdat& operator=(const Imdat&) = delete;
 	Imdat(Imdat&&) = delete;
@@ -20,33 +20,36 @@ public:
 	~Imdat() = default;
 
 	//functions for String commands
-	void set(const std::vector<String>&);
+	String set(const std::vector<String>&);
 	String get(const std::vector<String>&);
-	void del(const std::vector<String>&);
+	String del(const std::vector<String>&);
 
 	//functions for List commands
-	void lpushb(const std::vector<String>&);
-	void lpushf(const std::vector<String>&);
+	String lpushb(const std::vector<String>&);
+	String lpushf(const std::vector<String>&);
 	String lget(const std::vector<String>&);
-	void lpopb(const std::vector<String>&);
-	void lpopf(const std::vector<String>&);
-	void ldel(const std::vector<String>&);
+	String lpopb(const std::vector<String>&);
+	String lpopf(const std::vector<String>&);
+	String ldel(const std::vector<String>&);
 
 	//functions for Set commands
-	void spush(const std::vector<String>&);
+	String spush(const std::vector<String>&);
 	String sget(const std::vector<String>&);
-	void sdel(const std::vector<String>&);
+	String sdel(const std::vector<String>&);
 
 	//functions for priority queue
-	void qpush(const std::vector<String>&);
-	void qpop(const std::vector<String>&);
+	String qpush(const std::vector<String>&);
+	String qpop(const std::vector<String>&);
 	String qtop(const std::vector<String>&);
-	void qdel(const std::vector<String>&);
+	String qdel(const std::vector<String>&);
 	
 	//functions for hash_table
-	void hpush(const std::vector<String>&);
+	String hpush(const std::vector<String>&);
 	String hget(const std::vector<String>&);
-	void hdel(const std::vector<String>&);
+	String hdel(const std::vector<String>&);
+
+	//finds the proper function for command and calls
+	String call(const std::vector<String>&);
 
 private:
 	int _stoi(const String&);
@@ -56,6 +59,8 @@ private:
 	HashTable<String, Set> setMap;
 	HashTable<String, MaxHeap> queueMap;
 	HashTable<String, HashTable<String, String>> htMap;
+	
+	HashTable<String, String(Imdat::*)(const std::vector<String>&)> commandMap;
 };
 
 #endif //IMDAT_H
