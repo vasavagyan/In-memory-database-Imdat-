@@ -6,8 +6,7 @@ int Set::_height(Node* curr) const
 {
 	int high = 0;
 
-	if (curr)
-	{
+	if (curr) {
 		int leftHeight = _height(curr->left);
 		int rightHeight = _height(curr->right);
 		int max_h = std::max(leftHeight, rightHeight);
@@ -106,9 +105,9 @@ void Set::inorder() const
 
 void Set::_inorder(Node* head) const
 {
-	if (!head)
+	if (!head) {
 		return;
-
+	}
 	_inorder(head->left);
 	std::cout << head->data << " ";
 	_inorder(head->right);
@@ -125,7 +124,6 @@ void Set::_preorder(Node* head) const
 	if (!head) {
 		return;
 	}
-
 	std::cout << head->data << " ";
 	_preorder(head->left);
 	_preorder(head->right);
@@ -142,7 +140,6 @@ void Set::_postorder(Node* head) const
 	if (!head) {
 		return;
 	}
-
 	_postorder(head->left);
 	_postorder(head->right);
 	std::cout << head->data << " ";
