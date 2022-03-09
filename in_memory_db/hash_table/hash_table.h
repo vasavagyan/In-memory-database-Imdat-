@@ -39,6 +39,7 @@ public:
 	void emplace(const Key&, const Val&);
 	void erase(const Key&);
 	void clear();
+	bool find(const Key&);
 
 private:
 	Hash hashStr;
