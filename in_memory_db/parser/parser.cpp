@@ -11,8 +11,7 @@ void Parser::parse_command(const String& line)
 {
 	String singleToken;
 
-	for (int i = 0; i < line.strlen(); ++i)
-	{
+	for (int i = 0; i < line.strlen(); ++i) {
 		if (!is_white_space(line[i])) {
 			singleToken += line[i];
 		} else if (!singleToken.is_empty()) {
