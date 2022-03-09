@@ -69,8 +69,8 @@ int main(int argc, char *argv[])
 		
 		if (n < 0) error("ERROR reading from socket");
 
-		String com = buffer;
-		parser.parse_command(com);
+		String entry = buffer;
+		parser.parse_command(entry);
 		command = parser.get_tokens();
 		
 		if (!parser.is_valid(command)) {
@@ -81,110 +81,12 @@ int main(int argc, char *argv[])
 		}
 		
 		printf("Command: %s", buffer);
-		
-		if (command[0] == "set") {
-			db.set(command);
-			n = write(newsockfd, "OK", 2);
-			if (n < 0) error("ERROR writing to socket");
-		
-		} else if (command[0] == "get") {
-			String str = db.get(command);
-			char* reply = str.c_str();
-			n = write(newsockfd, reply, str.strlen());
-			if (n < 0) error("ERROR writing to socket");
 
-		} else if (command[0] == "del") {
-			db.del(command);
-			n = write(newsockfd, "String cleaned", 14);
-			if (n < 0) error("ERROR writing to socket");
-		
-		} else if (command[0] == "lpushb") {
-			db.lpushb(command);
-			n = write(newsockfd, "OK", 2);
-			if (n < 0) error("ERROR writing to socket");
-		
-		} else if (command[0] == "lpushf") {
-			db.lpushf(command);
-			n = write(newsockfd, "OK", 2);
-			if (n < 0) error("ERROR writing to socket");
-		
-		} else if (command[0] == "lget") {
-			String str = db.lget(command);
-			char* reply = str.c_str();
-			n = write(newsockfd, reply, str.strlen());
-			if (n < 0) error("ERROR writing to socket");
-		
-		} else if (command[0] == "lpopb") {
-			db.lpopb(command);
-			n = write(newsockfd, "OK", 2);
-			if (n < 0) error("ERROR writing to socket");
-		
-		} else if (command[0] == "lpopf") {
-			db.lpopf(command);
-			n = write(newsockfd, "OK", 2);
-			if (n < 0) error("ERROR writing to socket");
-		
-		} else if (command[0] == "ldel") {
-			db.ldel(command);
-			n = write(newsockfd, "List cleaned", 12);
-			if (n < 0) error("ERROR writing to socket");
-		
-		} else if (command[0] == "spush") {
-			db.spush(command);
-			n = write(newsockfd, "OK", 2);
-			if (n < 0) error("ERROR writing to socket");
-		
-		} else if (command[0] == "sget") {
-			String str = db.sget(command);
-			char* reply = str.c_str();
-			n = write(newsockfd, reply, str.strlen());
-			if (n < 0) error("ERROR writing to socket");
-		
-		} else if (command[0] == "sdel") {
-			db.sdel(command);
-			n = write(newsockfd, "Set cleaned", 11);
-			if (n < 0) error("ERROR writing to socket");
-		
-		} else if (command[0] == "qpush") {
-			db.qpush(command);
-			n = write(newsockfd, "OK", 2);
-			if (n < 0) error("ERROR writing to socket");
-		
-		} else if (command[0] == "qpop") {
-			db.qpop(command);
-			n = write(newsockfd, "OK", 2);
-			if (n < 0) error("ERROR writing to socket");
-		
-		} else if (command[0] == "qtop") {
-			String str = db.qtop(command);
-			char* reply = str.c_str();
-			n = write(newsockfd, reply, str.strlen());
-			if (n < 0) error("ERROR writing to socket");
-		
-		} else if (command[0] == "qdel") {
-			db.qdel(command);
-			n = write(newsockfd, "Queue cleaned", 13);
-			if (n < 0) error("ERROR writing to socket");
-		
-		} else if (command[0] == "hpush") {
-			db.hpush(command);
-			n = write(newsockfd, "OK", 2);
-			if (n < 0) error("ERROR writing to socket");
-		
-		} else if (command[0] == "hget") {
-			String str = db.hget(command);
-			char* reply = str.c_str();
-			n = write(newsockfd, reply, str.strlen());
-			if (n < 0) error("ERROR writing to socket");
-		
-		} else if (command[0] == "hdel") {
-			db.hdel(command);
-			n = write(newsockfd, "Hash Table cleaned", 18);
-			if (n < 0) error("ERROR writing to socket");
-		} else {
-			n = write(newsockfd, "Wrong command", 13);
-			if (n < 0) error("ERROR writing to socket");
-		}
+		String str = db.call(command);
+		char* reply = str.c_str();
+		n = write(newsockfd, reply, str.strlen());
+		if (n < 0)
+			error("ERROR writing to socket");
 	}
 
 	close(newsockfd);
