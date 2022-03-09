@@ -40,8 +40,8 @@ public:
 	char* c_str() const { return buffer; }
 	char& at (const unsigned int);
 	const char& at (const unsigned int) const;
-private:
 
+private:
 	unsigned int size = 0;
 	unsigned int capacity = 0;
 	char* buffer = nullptr;
