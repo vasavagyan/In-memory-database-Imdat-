@@ -50,7 +50,6 @@ private:
 	Node* _rotate_LL(Node*);
 	Node* _rotate_RL(Node*);
 	Node* _rotate_LR(Node*);
-
 };
 
 #endif //SET_H
