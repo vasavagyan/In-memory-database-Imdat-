@@ -1,20 +1,14 @@
 #include "set.h"
-
 #include <algorithm>	//for std::max
 
 int Set::_height(Node* curr) const
 {
-	int high = 0;
-
-	if (curr) {
-		int leftHeight = _height(curr->left);
-		int rightHeight = _height(curr->right);
-		int max_h = std::max(leftHeight, rightHeight);
-
-		high = max_h + 1;
+	if (!curr) {
+		return 0;
 	}
+	
+	return std::max(_height(curr->left), _height(curr->right)) + 1;
 
-	return high;
 }
 
 int Set::_difference(Node* curr) const
@@ -109,9 +103,8 @@ void Set::_inorder(Node* head) const
 		return;
 	}
 	_inorder(head->left);
-	std::cout << head->data << " ";
+	std::cout << head->data << std::endl;
 	_inorder(head->right);
-	std::cout << std::endl;
 }
 
 void Set::preorder() const
@@ -124,10 +117,9 @@ void Set::_preorder(Node* head) const
 	if (!head) {
 		return;
 	}
-	std::cout << head->data << " ";
+	std::cout << head->data << std::endl;
 	_preorder(head->left);
 	_preorder(head->right);
-	std::cout << std::endl;
 }
 
 void Set::postorder() const
@@ -230,7 +222,6 @@ void Set::_clear(Node* head)
 	if (!head) {
 		return;
 	}
-	
 	_clear(head->left);
 	_clear(head->right);
 	delete head;
