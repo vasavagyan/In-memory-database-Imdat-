@@ -15,6 +15,7 @@ public:
 	void remove(const String&);
 	void clear();
 	bool empty() const;
+	int height() const { return _height(root); }
 
 	void inorder() const;
 	void preorder() const;
